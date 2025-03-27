@@ -11,7 +11,7 @@ pipeline {
         stage('Build') {
             steps {
                 echo 'Building the app..'
-                sh 'npm install' // Ensure dependencies are installed
+                bat 'npm install' // Ensure dependencies are installed
           }
         }
 
