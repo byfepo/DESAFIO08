@@ -1,0 +1,90 @@
+Started by user Francisco V. Diaz
+[Pipeline] Start of Pipeline
+[Pipeline] node
+Running on Jenkins in /var/lib/jenkins/workspace/Building Docker Image
+[Pipeline] {
+[Pipeline] stage
+[Pipeline] { (Checkout)
+[Pipeline] echo
+Checking out code..
+[Pipeline] git
+The recommended git tool is: NONE
+No credentials specified
+ > /usr/bin/git rev-parse --resolve-git-dir /var/lib/jenkins/workspace/Building Docker Image/.git # timeout=10
+Fetching changes from the remote Git repository
+ > /usr/bin/git config remote.origin.url https://github.com/spy0x/DesafioM08D01.git # timeout=10
+Fetching upstream changes from https://github.com/spy0x/DesafioM08D01.git
+ > /usr/bin/git --version # timeout=10
+ > git --version # 'git version 2.39.5'
+ > /usr/bin/git fetch --tags --force --progress -- https://github.com/spy0x/DesafioM08D01.git +refs/heads/*:refs/remotes/origin/* # timeout=10
+ > /usr/bin/git rev-parse refs/remotes/origin/main^{commit} # timeout=10
+Checking out Revision f58b2cdec517608dbb21efb72c0d967a7ddac459 (refs/remotes/origin/main)
+ > /usr/bin/git config core.sparsecheckout # timeout=10
+ > /usr/bin/git checkout -f f58b2cdec517608dbb21efb72c0d967a7ddac459 # timeout=10
+ > /usr/bin/git branch -a -v --no-abbrev # timeout=10
+ > /usr/bin/git branch -D main # timeout=10
+ > /usr/bin/git checkout -b main f58b2cdec517608dbb21efb72c0d967a7ddac459 # timeout=10
+Commit message: "fixed Jenkinsfile"
+ > /usr/bin/git rev-list --no-walk 1938a87d4ebc9bd709b7b4e52baea45fd30cc9f9 # timeout=10
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Build)
+[Pipeline] echo
+Building the app..
+[Pipeline] sh
++ npm install
+
+up to date, audited 70 packages in 727ms
+
+14 packages are looking for funding
+  run `npm fund` for details
+
+found 0 vulnerabilities
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] stage
+[Pipeline] { (Deploy)
+[Pipeline] echo
+Deploying the app..
+[Pipeline] script
+[Pipeline] {
+[Pipeline] isUnix
+[Pipeline] withEnv
+[Pipeline] {
+[Pipeline] sh
++ docker build -t proyecto-desafiom08:latest .
+Sending build context to Docker daemon  2.964MB
+Step 1/7 : FROM node:16
+ ---> 1ddc7e4055fd
+Step 2/7 : WORKDIR /usr/src/app
+ ---> Using cache
+ ---> 612e2e2b9a03
+Step 3/7 : COPY package.json ./
+ ---> Using cache
+ ---> 7dc5c77cce75
+Step 4/7 : RUN npm install
+ ---> Using cache
+ ---> cb27d2fb9c79
+Step 5/7 : COPY . .
+ ---> 852a4c4f7c66
+Step 6/7 : EXPOSE 3000
+ ---> Running in 5aaac7969043
+Removing intermediate container 5aaac7969043
+ ---> 8fc424322df7
+Step 7/7 : CMD ["npm", "start"]
+ ---> Running in d20e1f4dd1ba
+Removing intermediate container d20e1f4dd1ba
+ ---> 221656712f7f
+Successfully built 221656712f7f
+Successfully tagged proyecto-desafiom08:latest
+[Pipeline] }
+[Pipeline] // withEnv
+[Pipeline] }
+[Pipeline] // script
+[Pipeline] }
+[Pipeline] // stage
+[Pipeline] }
+[Pipeline] // node
+[Pipeline] End of Pipeline
+Finished: SUCCESS
